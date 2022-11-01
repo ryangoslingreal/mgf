@@ -10,7 +10,7 @@ public class PlayerController : MonoBehaviour
 
     float rotateSpeed = 7f;
     float torsoLeanAngle = 30f;
-    float headLeanAngle = 15f;
+    float headLeanAngle = -15f;
 
     float lrMovementSpeed = 5f;
     float fbMovementSpeed = 7f;
@@ -21,7 +21,7 @@ public class PlayerController : MonoBehaviour
         Quaternion initRotHead = headPivot.transform.localRotation;
 
         topPivot.transform.localRotation = Quaternion.Lerp(initRotTop, Quaternion.Euler(initRotTop.x, initRotTop.y, torsoLeanAngle * CheckLean()), rotateSpeed * Time.deltaTime);
-        headPivot.transform.localRotation = Quaternion.Lerp(initRotHead, Quaternion.Euler(initRotTop.x, initRotTop.y, -headLeanAngle * CheckLean()), rotateSpeed * Time.deltaTime);
+        headPivot.transform.localRotation = Quaternion.Lerp(initRotHead, Quaternion.Euler(initRotTop.x, initRotTop.y, headLeanAngle * CheckLean()), rotateSpeed * Time.deltaTime);
 
         player.transform.Translate(lrMovementSpeed * Time.deltaTime * CheckLRMovement(), 0, fbMovementSpeed * Time.deltaTime * CheckFBMovement(), Space.Self);
     }
