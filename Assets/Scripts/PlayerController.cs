@@ -12,8 +12,16 @@ public class PlayerController : MonoBehaviour
     float torsoLeanAngle = 30f;
     float headLeanAngle = -15f;
 
-    float lrMovementSpeed = 5f;
-    float fbMovementSpeed = 7f;
+    float movementSpeed;
+    const float defaultSprintMovementSpeed = 9f;
+    const float defaultWalkMovementSpeed = 4.5f;
+    const float defaultCrouchMovementSpeed = 3f;
+
+    bool crouching = false;
+    bool sprinting = false;
+
+    float defaultCrouchSpeed = 4f;
+    float crouchHeight = 1.4f;
     
     void Update()
     {
@@ -23,7 +31,9 @@ public class PlayerController : MonoBehaviour
         topPivot.transform.localRotation = Quaternion.Lerp(initRotTop, Quaternion.Euler(initRotTop.x, initRotTop.y, torsoLeanAngle * CheckLean()), rotateSpeed * Time.deltaTime);
         headPivot.transform.localRotation = Quaternion.Lerp(initRotHead, Quaternion.Euler(initRotTop.x, initRotTop.y, headLeanAngle * CheckLean()), rotateSpeed * Time.deltaTime);
 
-        player.transform.Translate(lrMovementSpeed * Time.deltaTime * CheckLRMovement(), 0, fbMovementSpeed * Time.deltaTime * CheckFBMovement(), Space.Self);
+        player.transform.Translate(movementSpeed * Time.deltaTime * CheckLRMovement(), 0, movementSpeed * Time.deltaTime * CheckFBMovement(), Space.Self);
+
+        CheckStance();
     }
 
     int CheckLean()
@@ -83,6 +93,41 @@ public class PlayerController : MonoBehaviour
         else
         {
             return 0;
+        }
+    }
+
+    void CheckStance()
+    {
+        if (Input.GetKeyDown(KeyCode.LeftControl))
+        {
+            crouching = !crouching; 
+        }
+        
+        if (crouching)
+        {
+	    	movementSpeed = defaultCrouchMovementSpeed;
+			player.transform.position = Vector3.Lerp(player.transform.position, new Vector3(player.transform.position.x, Mathf.Clamp(player.transform.position.y - crouchHeight, -1.4f, 0), player.transform.position.z), defaultCrouchSpeed * Time.deltaTime);
+		}
+        else
+        {
+			movementSpeed = defaultWalkMovementSpeed;
+			player.transform.position = Vector3.Lerp(player.transform.position, new Vector3(player.transform.position.x, Mathf.Clamp(player.transform.position.y + crouchHeight, -1.4f, 0), player.transform.position.z), defaultCrouchSpeed * Time.deltaTime);
+		}
+
+        if (Input.GetKey(KeyCode.LeftShift))
+        {
+            sprinting = true;
+            crouching = false;
+            movementSpeed = defaultSprintMovementSpeed;
+        }
+        else
+        {
+            sprinting = false;
+        }
+
+        if (!sprinting && !crouching)
+        {
+            movementSpeed = defaultWalkMovementSpeed;
         }
     }
 }
