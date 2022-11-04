@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.44657874, g: 0.49641275, b: 0.5748172, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657826, g: 0.49641263, b: 0.57481676, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -170,7 +170,7 @@ GameObject:
   - component: {fileID: 653650601}
   m_Layer: 0
   m_Name: enemi
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -881,6 +881,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1382597303}
   - component: {fileID: 1382597302}
+  - component: {fileID: 1382597304}
+  - component: {fileID: 1382597305}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -920,6 +922,34 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1382597304
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1382597301}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2819c0bd2a608c1418a8a2946c438124, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  slow: {fileID: 8300000, guid: dfb1eab17098d4743bf20fa9b5fbd036, type: 3}
+  med: {fileID: 8300000, guid: 4bd341abbfac48a45978612923416cf6, type: 3}
+  fast: {fileID: 8300000, guid: b4ac49bfef6715c45a7582b3293ecadc, type: 3}
+  bpm: 60
+--- !u!114 &1382597305
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1382597301}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 818c76510ca604a4d97d92a471c28ce8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1693642239
 GameObject:
   m_ObjectHideFlags: 0
