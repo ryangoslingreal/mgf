@@ -1,18 +1,23 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class MouseLook : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+	float mouseX;
+	float mouseY;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+	public float sensitivity = 100f;
+	public GameObject body;
+	public GameObject head;
+	float rotation = 0f;
+
+	public float minAngle = -90f;
+	public float maxAngle = 90f;
+
+	void Update()
+	{
+		mouseX = Input.GetAxis("Mouse X") * sensitivity * Time.deltaTime;
+		mouseY = Input.GetAxis("Mouse Y") * sensitivity * Time.deltaTime;
+
+		body.transform.localRotation = Quaternion.Lerp(body.transform.rotation.x + mouseX, body.transform.rotation.y, body.transform.rotation.z, Time.deltaTime * 7f);
+	}
 }
