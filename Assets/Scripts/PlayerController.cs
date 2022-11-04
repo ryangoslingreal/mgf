@@ -5,10 +5,11 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     public GameObject player;
-    public GameObject topPivot;
+	public GameObject camera;
+	public GameObject topPivot;
     public GameObject headPivot;
 
-    float rotateSpeed = 7f;
+	float rotateSpeed = 7f;
     float torsoLeanAngle = 30f;
     float headLeanAngle = -15f;
 
@@ -22,10 +23,31 @@ public class PlayerController : MonoBehaviour
 
     float defaultCrouchSpeed = 4f;
     float crouchHeight = 1.4f;
-    
-    void Update()
+
+    public float sensitivity = 600f;
+    //var tmpOffset = 90f;
+
+    void Start()
     {
-        Quaternion initRotTop = topPivot.transform.localRotation;
+        Cursor.visible = false;
+    }
+
+	void Update()
+    {
+        var tmpOffset = 90f;
+		float mouseX = Input.GetAxis("Mouse X") * sensitivity * Time.deltaTime / Screen.width * 100;
+		float mouseY = Input.GetAxis("Mouse Y") * sensitivity * Time.deltaTime / Screen.height * 100;
+
+		player.transform.Rotate(0, mouseX, 0, Space.Self);
+		camera.transform.Rotate(-mouseY, 0, 0, Space.Self);
+
+		//var currentCameraRot = camera.transform.rotation.eulerAngles;
+		//currentCameraRot.x -= mouseY;
+		//currentCameraRotX = Mathf.Clamp(currentCameraRotX, 0f, 180f);
+		//currentCameraRotX -= tmpOffset;
+		//camera.transform.localRotation = Quaternion.Euler(currentCameraRot);
+
+		Quaternion initRotTop = topPivot.transform.localRotation;
         Quaternion initRotHead = headPivot.transform.localRotation;
 
         topPivot.transform.localRotation = Quaternion.Lerp(initRotTop, Quaternion.Euler(initRotTop.x, initRotTop.y, torsoLeanAngle * CheckLean()), rotateSpeed * Time.deltaTime);

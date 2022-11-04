@@ -41,6 +41,7 @@ public class Heartbeat : MonoBehaviour
             }
 
             bpm = Mathf.Clamp((int)(ParabolicCurve(dist) * defaultbpm), defaultbpm, maxbpm);
+            //Debug.Log(bpm);
 		}
     }
 
