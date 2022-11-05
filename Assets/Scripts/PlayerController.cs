@@ -24,7 +24,7 @@ public class PlayerController : MonoBehaviour
     float defaultCrouchSpeed = 4f;
     float crouchHeight = 1.4f;
 
-    public float sensitivity = 600f;
+    float sensitivity = 800f;
     private float rotY = 0f;
     private float rotX = 0f;
 
@@ -37,6 +37,7 @@ public class PlayerController : MonoBehaviour
         rotX -= mouseY;
 
         rotX = Mathf.Clamp(rotX, -90f, 90f);
+        player.transform.eulerAngles = new Vector3(0f, rotY, 0f);
         camera.transform.eulerAngles = new Vector3(rotX, rotY, 0f);
 
 		Quaternion initRotTop = topPivot.transform.localRotation;
