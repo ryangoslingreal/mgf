@@ -28,12 +28,6 @@ public class PlayerController : MonoBehaviour
     private float rotY = 0f;
     private float rotX = 0f;
 
-    void Start()
-    {
-        Cursor.visible = false;
-		Cursor.lockState = CursorLockMode.Locked;
-	}
-
 	void Update()
     {
 		float mouseX = Input.GetAxis("Mouse X") * sensitivity * Time.deltaTime / Screen.width * 100;
