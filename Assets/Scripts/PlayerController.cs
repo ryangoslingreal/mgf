@@ -25,27 +25,25 @@ public class PlayerController : MonoBehaviour
     float crouchHeight = 1.4f;
 
     public float sensitivity = 600f;
-    //var tmpOffset = 90f;
+    private float rotY = 0f;
+    private float rotX = 0f;
 
     void Start()
     {
         Cursor.visible = false;
-    }
+		Cursor.lockState = CursorLockMode.Locked;
+	}
 
 	void Update()
     {
-        var tmpOffset = 90f;
 		float mouseX = Input.GetAxis("Mouse X") * sensitivity * Time.deltaTime / Screen.width * 100;
 		float mouseY = Input.GetAxis("Mouse Y") * sensitivity * Time.deltaTime / Screen.height * 100;
 
-		player.transform.Rotate(0, mouseX, 0, Space.Self);
-		camera.transform.Rotate(-mouseY, 0, 0, Space.Self);
+        rotY += mouseX;
+        rotX -= mouseY;
 
-		//var currentCameraRot = camera.transform.rotation.eulerAngles;
-		//currentCameraRot.x -= mouseY;
-		//currentCameraRotX = Mathf.Clamp(currentCameraRotX, 0f, 180f);
-		//currentCameraRotX -= tmpOffset;
-		//camera.transform.localRotation = Quaternion.Euler(currentCameraRot);
+        rotX = Mathf.Clamp(rotX, -90f, 90f);
+        camera.transform.eulerAngles = new Vector3(rotX, rotY, 0f);
 
 		Quaternion initRotTop = topPivot.transform.localRotation;
         Quaternion initRotHead = headPivot.transform.localRotation;
