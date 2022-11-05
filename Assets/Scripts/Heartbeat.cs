@@ -10,7 +10,7 @@ public class Heartbeat : MonoBehaviour
     public AudioClip fast;
 
     public const int defaultbpm = 60;
-    public const int maxbpm = 180;
+    public const int maxbpm = 150;
     public const int maxRange = 15;
     public const int midlowbpm = 80;
     public const int midhighbpm = 120;
