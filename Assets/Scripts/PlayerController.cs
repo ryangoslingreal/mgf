@@ -27,7 +27,7 @@ public class PlayerController : MonoBehaviour
     float sensitivity = 800f;
     private float rotY = 0f;
     private float rotX = 0f;
-    float headTiltAngle = 70f;
+    float maxHeadTiltAngle = 70f;
 
 	void Update()
     {
@@ -37,7 +37,7 @@ public class PlayerController : MonoBehaviour
         rotY += mouseX;
         rotX -= mouseY;
 
-        rotX = Mathf.Clamp(rotX, -headTiltAngle, headTiltAngle);
+        rotX = Mathf.Clamp(rotX, -maxHeadTiltAngle, maxHeadTiltAngle);
         player.transform.eulerAngles = new Vector3(0f, rotY, 0f);
         camera.transform.eulerAngles = new Vector3(rotX, rotY, 0f);
 
