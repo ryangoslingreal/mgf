@@ -24,10 +24,10 @@ public class PlayerController : MonoBehaviour
     float defaultCrouchSpeed = 4f;
     float crouchHeight = 1.4f;
 
-    float sensitivity = 800f;
+    float sensitivity = 1000f;
     private float rotY = 0f;
     private float rotX = 0f;
-    float maxHeadTiltAngle = 70f;
+    float maxHeadTiltAngle = 64f;
 
 	void Update()
     {
