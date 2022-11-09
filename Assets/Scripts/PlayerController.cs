@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    Animator animator;
+
     public GameObject player;
 	public GameObject camera;
 	public GameObject topPivot;
@@ -20,6 +22,7 @@ public class PlayerController : MonoBehaviour
 
     bool crouching = false;
     bool sprinting = false;
+    bool walking = false;
 
     float defaultCrouchSpeed = 4f;
     float crouchHeight = 1.4f;
@@ -29,7 +32,12 @@ public class PlayerController : MonoBehaviour
     private float rotX = 0f;
     float maxHeadTiltAngle = 64f;
 
-	void Update()
+    void Start()
+    {
+        animator = GetComponent<Animator>();
+    }
+
+    void Update()
     {
 		float mouseX = Input.GetAxis("Mouse X") * sensitivity * Time.deltaTime / Screen.width * 100;
 		float mouseY = Input.GetAxis("Mouse Y") * sensitivity * Time.deltaTime / Screen.height * 100;
@@ -50,6 +58,8 @@ public class PlayerController : MonoBehaviour
         player.transform.Translate(movementSpeed * Time.deltaTime * CheckLRMovement(), 0, movementSpeed * Time.deltaTime * CheckFBMovement(), Space.Self);
 
         CheckStance();
+
+        UpdateAnimator();
     }
 
     int CheckLean()
@@ -96,18 +106,22 @@ public class PlayerController : MonoBehaviour
     {
         if (Input.GetKey(KeyCode.W) && Input.GetKey(KeyCode.S))
         {
+            walking = false;
             return 0;
         }
         else if (Input.GetKey(KeyCode.W))
         {
+            walking = true;
             return 1;
         }
         else if (Input.GetKey(KeyCode.S))
         {
+            walking = true;
             return -1;
         }
         else
         {
+            walking = false;
             return 0;
         }
     }
@@ -145,5 +159,10 @@ public class PlayerController : MonoBehaviour
         {
             movementSpeed = defaultWalkMovementSpeed;
         }
+    }
+
+    void UpdateAnimator()
+    {
+        animator.SetBool("walking", walking);
     }
 }
