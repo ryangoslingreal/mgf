@@ -22,7 +22,7 @@ public class PlayerController : MonoBehaviour
 
     bool crouching = false;
     bool sprinting = false;
-    bool walking = false;
+    bool walkingFB = false;
 
     float defaultCrouchSpeed = 4f;
     float crouchHeight = 1.4f;
@@ -106,22 +106,22 @@ public class PlayerController : MonoBehaviour
     {
         if (Input.GetKey(KeyCode.W) && Input.GetKey(KeyCode.S))
         {
-            walking = false;
+            walkingFB = false;
             return 0;
         }
         else if (Input.GetKey(KeyCode.W))
         {
-            walking = true;
+            walkingFB = true;
             return 1;
         }
         else if (Input.GetKey(KeyCode.S))
         {
-            walking = true;
+            walkingFB = true;
             return -1;
         }
         else
         {
-            walking = false;
+            walkingFB = false;
             return 0;
         }
     }
@@ -163,6 +163,6 @@ public class PlayerController : MonoBehaviour
 
     void UpdateAnimator()
     {
-        animator.SetBool("walking", walking);
+        animator.SetBool("walkingFB", walkingFB);
     }
 }
