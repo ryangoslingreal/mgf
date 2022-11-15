@@ -1,3 +1,4 @@
+using JetBrains.Annotations;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,9 +8,10 @@ public class PlayerController : MonoBehaviour
     Animator animator;
 
     public GameObject player;
-	public GameObject camera;
+	public GameObject cam;
 	public GameObject topPivot;
     public GameObject headPivot;
+    public GameObject wpnAnchor;
 
 	float rotateSpeed = 7f;
     float torsoLeanAngle = 30f;
@@ -30,11 +32,16 @@ public class PlayerController : MonoBehaviour
     float sensitivity = 1000f;
     private float rotY = 0f;
     private float rotX = 0f;
-    float maxHeadTiltAngle = 64f;
+    float maxHeadTiltAngle = 60f;
+    
+    public GameObject[] wpns;
+    GameObject activeWpn;
 
     void Start()
     {
         animator = GetComponent<Animator>();
+
+        GetWeapons();
     }
 
     void Update()
@@ -47,7 +54,7 @@ public class PlayerController : MonoBehaviour
 
         rotX = Mathf.Clamp(rotX, -maxHeadTiltAngle, maxHeadTiltAngle);
         player.transform.eulerAngles = new Vector3(0f, rotY, 0f);
-        camera.transform.eulerAngles = new Vector3(rotX, rotY, 0f);
+        cam.transform.eulerAngles = new Vector3(rotX, rotY, 0f);
 
 		Quaternion initRotTop = topPivot.transform.localRotation;
         Quaternion initRotHead = headPivot.transform.localRotation;
@@ -58,6 +65,11 @@ public class PlayerController : MonoBehaviour
         player.transform.Translate(movementSpeed * Time.deltaTime * CheckLRMovement(), 0, movementSpeed * Time.deltaTime * CheckFBMovement(), Space.Self);
 
         CheckStance();
+
+        if (Input.GetKey(KeyCode.C))
+        {
+            
+        }
 
         UpdateAnimator();
     }
@@ -165,4 +177,26 @@ public class PlayerController : MonoBehaviour
     {
         animator.SetBool("walkingFB", walkingFB);
     }
+
+    void GetWeapons()
+    {
+		for (int i = 0; i < wpnAnchor.transform.childCount; i++)
+		{
+			wpns[i] = wpnAnchor.gameObject.transform.GetChild(i).gameObject;
+		}
+
+		activeWpn = wpns[1];
+
+        foreach (GameObject weapon in wpns)
+        {
+            if (weapon == activeWpn)
+            {
+                weapon.SetActive(true);
+            }
+            else
+            {
+                weapon.SetActive(false);
+            }
+        }
+	}
 }
