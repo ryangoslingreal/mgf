@@ -34,44 +34,50 @@ public class PlayerController : MonoBehaviour
     private float rotX = 0f;
     float maxHeadTiltAngle = 60f;
     
-    public GameObject[] wpns;
-    GameObject activeWpn;
+    public GameObject primary;
+    public GameObject sidearm;
+    public GameObject melee;
 
     void Start()
     {
         animator = GetComponent<Animator>();
 
-        GetWeapons();
+        primary.SetActive(false);
+        sidearm.SetActive(true);
+        melee.SetActive(false);
     }
 
     void Update()
     {
+        // mouse delta in pixels * sensitivity * time since last frame / screen width * 100.
+        // returns axis rotation for current frame in degrees.
 		float mouseX = Input.GetAxis("Mouse X") * sensitivity * Time.deltaTime / Screen.width * 100;
 		float mouseY = Input.GetAxis("Mouse Y") * sensitivity * Time.deltaTime / Screen.height * 100;
 
-        rotY += mouseX;
-        rotX -= mouseY;
+		rotY += mouseX;
+		rotX -= mouseY;
 
-        rotX = Mathf.Clamp(rotX, -maxHeadTiltAngle, maxHeadTiltAngle);
-        player.transform.eulerAngles = new Vector3(0f, rotY, 0f);
-        cam.transform.eulerAngles = new Vector3(rotX, rotY, 0f);
+		rotX = Mathf.Clamp(rotX, -maxHeadTiltAngle, maxHeadTiltAngle);
+		player.transform.eulerAngles = new Vector3(0f, rotY, 0f); // body rotated.
+		cam.transform.eulerAngles = new Vector3(rotX, rotY, 0f); // head tilted + rotated side to side to keep aligned with body.
 
+        // saving current torso and head rotation to shorten reference in successive lines.
 		Quaternion initRotTop = topPivot.transform.localRotation;
         Quaternion initRotHead = headPivot.transform.localRotation;
 
+        // torso rotated in direction of input.
         topPivot.transform.localRotation = Quaternion.Lerp(initRotTop, Quaternion.Euler(initRotTop.x, initRotTop.y, torsoLeanAngle * CheckLean()), rotateSpeed * Time.deltaTime);
+        // head rotated in opposite direction of input.
         headPivot.transform.localRotation = Quaternion.Lerp(initRotHead, Quaternion.Euler(initRotTop.x, initRotTop.y, headLeanAngle * CheckLean()), rotateSpeed * Time.deltaTime);
 
+        // player translated every frame by their speed * time since last frame if they have pressed movement key.
         player.transform.Translate(movementSpeed * Time.deltaTime * CheckLRMovement(), 0, movementSpeed * Time.deltaTime * CheckFBMovement(), Space.Self);
 
         CheckStance();
 
-        if (Input.GetKey(KeyCode.C))
-        {
-            
-        }
+        WeaponControl();
 
-        UpdateAnimator();
+		UpdateAnimator();
     }
 
     int CheckLean()
@@ -148,11 +154,13 @@ public class PlayerController : MonoBehaviour
         if (crouching)
         {
 	    	movementSpeed = defaultCrouchMovementSpeed;
+            // move player down smoothly.
 			player.transform.position = Vector3.Lerp(player.transform.position, new Vector3(player.transform.position.x, Mathf.Clamp(player.transform.position.y - crouchHeight, -1.4f, 0), player.transform.position.z), defaultCrouchSpeed * Time.deltaTime);
 		}
         else
         {
 			movementSpeed = defaultWalkMovementSpeed;
+            // move player up smoothly.
 			player.transform.position = Vector3.Lerp(player.transform.position, new Vector3(player.transform.position.x, Mathf.Clamp(player.transform.position.y + crouchHeight, -1.4f, 0), player.transform.position.z), defaultCrouchSpeed * Time.deltaTime);
 		}
 
@@ -178,25 +186,31 @@ public class PlayerController : MonoBehaviour
         animator.SetBool("walkingFB", walkingFB);
     }
 
-    void GetWeapons()
+    void WeaponControl()
     {
-		for (int i = 0; i < wpnAnchor.transform.childCount; i++)
+		if (Input.GetKey(KeyCode.Alpha1))
 		{
-			wpns[i] = wpnAnchor.gameObject.transform.GetChild(i).gameObject;
+			primary.SetActive(true);
+			sidearm.SetActive(false);
+			melee.SetActive(false);
 		}
-
-		activeWpn = wpns[1];
-
-        foreach (GameObject weapon in wpns)
-        {
-            if (weapon == activeWpn)
-            {
-                weapon.SetActive(true);
-            }
-            else
-            {
-                weapon.SetActive(false);
-            }
-        }
+		else if (Input.GetKey(KeyCode.Alpha2))
+		{
+			primary.SetActive(false);
+			sidearm.SetActive(true);
+			melee.SetActive(false);
+		}
+		// allow quick switching primary and sidearm if not using melee.
+		if (Input.GetKeyDown(KeyCode.C) && !melee.activeInHierarchy) 
+		{
+			primary.SetActive(!primary.activeInHierarchy);
+			sidearm.SetActive(!sidearm.activeInHierarchy);
+		}
+		else if (Input.GetKey(KeyCode.Alpha3))
+		{
+			primary.SetActive(false);
+			sidearm.SetActive(false);
+			melee.SetActive(true);
+		}
 	}
 }
