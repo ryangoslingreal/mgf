@@ -101,7 +101,7 @@ public class Heartbeat : MonoBehaviour
 					linearDist2 += 15f;
 				}
 			}
-             // compare distances.
+            // compare buffed distances.
 			if (linearDist1 < linearDist2)
 			{
                 closest = objs[i];

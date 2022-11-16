@@ -201,7 +201,7 @@ public class PlayerController : MonoBehaviour
 			melee.SetActive(false);
 		}
 		// allow quick switching primary and sidearm if not using melee.
-		if (Input.GetKeyDown(KeyCode.C) && !melee.activeInHierarchy) 
+		else if (Input.GetKeyDown(KeyCode.C) && !melee.activeInHierarchy) 
 		{
 			primary.SetActive(!primary.activeInHierarchy);
 			sidearm.SetActive(!sidearm.activeInHierarchy);
