@@ -905,6 +905,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9c4270c0fccf454cb0b1c16718491dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enemyGameObjects: []
+  enemyControllers: []
   player: {fileID: 6237192141485440529}
   cam: {fileID: 6237192140025827797}
   topPivot: {fileID: 6237192140189157730}

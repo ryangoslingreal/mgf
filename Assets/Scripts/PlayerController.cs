@@ -7,6 +7,9 @@ public class PlayerController : MonoBehaviour
 {
     Animator animator;
 
+    GameObject[] enemyGameObjects;
+    EnemyController[] enemyControllers;
+
     public GameObject player;
 	public GameObject cam;
 	public GameObject topPivot;
@@ -41,6 +44,14 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         animator = GetComponent<Animator>();
+
+        enemyGameObjects = GameObject.FindGameObjectsWithTag("Enemy");
+
+        int i = 0;
+        foreach (GameObject enemy in enemyGameObjects) {
+            enemyControllers[i] = enemyGameObjects[i].GetComponent<EnemyController>();
+            i++;
+        }
 
         primary.SetActive(false);
         sidearm.SetActive(true);

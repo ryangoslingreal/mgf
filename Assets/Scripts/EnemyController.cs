@@ -9,14 +9,14 @@ public class EnemyController : MonoBehaviour
 
     public GameObject[] nodes;
 
+    const float maxHealth = 100f;
+    public float health = 100f;
+
     void Start()
     {
         audioSource = GetComponent<AudioSource>();
-
-        audioSource.PlayOneShot(detectionSounds[2], 1f);
     }
 
-    // Update is called once per frame
     void Update()
     {
         
