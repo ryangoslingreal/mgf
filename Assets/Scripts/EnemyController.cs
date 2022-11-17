@@ -15,6 +15,7 @@ public class EnemyController : MonoBehaviour
     void Start()
     {
         audioSource = GetComponent<AudioSource>();
+        //audioSource.PlayOneShot(detectionSounds[2], 0.3f);
     }
 
     void Update()
