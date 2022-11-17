@@ -8,7 +8,7 @@ public class PlayerController : MonoBehaviour
     Animator animator;
 
     GameObject[] enemyGameObjects;
-    EnemyController[] enemyControllers;
+	EnemyController[] enemyControllers;
 
     public GameObject player;
 	public GameObject cam;
@@ -49,7 +49,7 @@ public class PlayerController : MonoBehaviour
 
         int i = 0;
         foreach (GameObject enemy in enemyGameObjects) {
-            enemyControllers[i] = enemyGameObjects[i].GetComponent<EnemyController>();
+            enemyControllers[i] = enemy.GetComponent<EnemyController>();
             i++;
         }
 
