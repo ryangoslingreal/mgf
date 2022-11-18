@@ -8,7 +8,7 @@ public class PlayerController : MonoBehaviour
     Animator animator;
 
     GameObject[] enemyGameObjects;
-	EnemyController[] enemyControllers;
+    List<MonoBehaviour> enemyControllers = new List<MonoBehaviour>();
 
     public GameObject player;
 	public GameObject cam;
@@ -45,14 +45,6 @@ public class PlayerController : MonoBehaviour
     {
         animator = GetComponent<Animator>();
 
-        enemyGameObjects = GameObject.FindGameObjectsWithTag("Enemy");
-
-        int i = 0;
-        foreach (GameObject enemy in enemyGameObjects) {
-            enemyControllers[i] = enemy.GetComponent<EnemyController>();
-            i++;
-        }
-
         primary.SetActive(false);
         sidearm.SetActive(true);
         melee.SetActive(false);
@@ -60,8 +52,10 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        // mouse delta in pixels * sensitivity * time since last frame / screen width * 100.
-        // returns axis rotation for current frame in degrees.
+        RefreshEnemyReferences();
+
+		// mouse delta in pixels * sensitivity * time since last frame / screen width * 100.
+		// returns axis rotation for current frame in degrees.
 		float mouseX = Input.GetAxis("Mouse X") * sensitivity * Time.deltaTime / Screen.width * 100;
 		float mouseY = Input.GetAxis("Mouse Y") * sensitivity * Time.deltaTime / Screen.height * 100;
 
@@ -91,6 +85,7 @@ public class PlayerController : MonoBehaviour
 		UpdateAnimator();
     }
 
+    // returns dir of lean.
     int CheckLean()
 	{
         if (Input.GetKey(KeyCode.Q) && Input.GetKey(KeyCode.E))
@@ -111,6 +106,7 @@ public class PlayerController : MonoBehaviour
 		}
 	}
 
+    // returns dir of lr movement.
     int CheckLRMovement()
 	{
         if (Input.GetKey(KeyCode.A) && Input.GetKey(KeyCode.D))
@@ -131,6 +127,7 @@ public class PlayerController : MonoBehaviour
 		}
     }
 
+    // returns dir of fb movement.
     int CheckFBMovement()
     {
         if (Input.GetKey(KeyCode.W) && Input.GetKey(KeyCode.S))
@@ -155,6 +152,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    // checks crouching and sprinting, switches between movement speeds. 
     void CheckStance()
     {
         if (Input.GetKeyDown(KeyCode.LeftControl))
@@ -192,11 +190,13 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    // updates animator parameters.
     void UpdateAnimator()
     {
         animator.SetBool("walkingFB", walkingFB);
     }
 
+    // allows weapon switching.
     void WeaponControl()
     {
 		if (Input.GetKey(KeyCode.Alpha1))
@@ -222,6 +222,19 @@ public class PlayerController : MonoBehaviour
 			primary.SetActive(false);
 			sidearm.SetActive(false);
 			melee.SetActive(true);
+		}
+	}
+
+    // refreshes enemy script references.
+    void RefreshEnemyReferences() 
+    {
+		enemyGameObjects = GameObject.FindGameObjectsWithTag("Enemy"); // new values override old ones.
+
+		enemyControllers.Clear(); // list cleared.
+
+		foreach (GameObject enemy in enemyGameObjects)
+		{
+			enemyControllers.Add(enemy.GetComponent<EnemyController>());
 		}
 	}
 }
