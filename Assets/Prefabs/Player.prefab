@@ -19,7 +19,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2200038131864104580
 Transform:
   m_ObjectHideFlags: 0
@@ -123,8 +123,7 @@ MonoBehaviour:
   sidearmMuzzle: {fileID: 1788206072145077048}
   fireRate: 120
   muzzleVelocity: 762
-  magMin: 10
-  magMax: 20
+  mag: 10
 --- !u!1 &1788206072145077048
 GameObject:
   m_ObjectHideFlags: 0

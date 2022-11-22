@@ -4,15 +4,28 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
-    public Rigidbody rigidbody;
+    public Rigidbody rb;
 
-    void Start()
-    {
-        rigidbody = GetComponent<Rigidbody>();
-    }
+	public bool collision = false;
 
-    void SetVelocity(float velocity)
+	void Update()
+	{
+		rb.velocity += new Vector3(0, 0 -10f * Time.deltaTime);
+
+		if (collision || transform.position.y <= 0f)
+		{
+			Destroy(this.gameObject);
+		}
+	}
+
+	void SetVelocity(float velocity)
     {
-        rigidbody.velocity = velocity;
-    }
+		rb = GetComponent<Rigidbody>();
+		rb.velocity = transform.forward * velocity; // vector = direction vector * magnitude.
+	}
+
+	private void OnTriggerEnter(Collider other)
+	{
+		Destroy(this.gameObject);
+	}
 }

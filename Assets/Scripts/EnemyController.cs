@@ -17,8 +17,17 @@ public class EnemyController : MonoBehaviour
         audioSource = GetComponent<AudioSource>();
     }
 
-    void Update()
-    {
-        
-    }
+	private void OnTriggerEnter(Collider other) // check for collision with bullet.
+	{
+		if (other.gameObject.tag == "Bullet") // check tag of object collided with.
+		{
+			health -= 25; // take dmg.
+			other.gameObject.GetComponent<Bullet>().collision = true; // set bullet collided with collision parameter to true. bullet will be destroyed next frame.
+
+			if (health <= 0)
+            {
+                Destroy(this.gameObject); // die if health < 0.
+			}
+        }
+	}
 }
