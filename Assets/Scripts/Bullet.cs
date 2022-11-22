@@ -1,5 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using UnityEditor.UIElements;
 using UnityEngine;
 
 public class Bullet : MonoBehaviour
@@ -7,6 +9,8 @@ public class Bullet : MonoBehaviour
     public Rigidbody rb;
 
 	public bool collision = false;
+
+	public List<string> tagsToIgnore = new List<string>();
 
 	void Update()
 	{
@@ -26,6 +30,11 @@ public class Bullet : MonoBehaviour
 
 	private void OnTriggerEnter(Collider other)
 	{
-		Destroy(this.gameObject);
+		// check that collision object's tag isn't in list of ignored tags.
+		if (!tagsToIgnore.Contains(other.gameObject.tag))
+		{
+			Debug.Log(other.gameObject.tag);
+			Destroy(this.gameObject);
+		}
 	}
 }

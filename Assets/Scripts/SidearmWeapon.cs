@@ -20,6 +20,7 @@ public class SidearmWeapon : MonoBehaviour
 	{
 		if (Input.GetKeyDown(KeyCode.Mouse0) && mag > 0 && canShoot)
 		{
+			Debug.Log("bullet fired");
 			ShootingDelay();
 			GameObject bullet = Instantiate(bulletPrefab, sidearmMuzzle.transform.position, transform.rotation); // create bullet.
 			bullet.SendMessage("SetVelocity", muzzleVelocity); // set bullet's velocity.
