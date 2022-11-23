@@ -9,6 +9,7 @@ public class SidearmWeapon : MonoBehaviour
 
 	public float fireRate = 120f; // 120rpm = trigger pull every 0.5s.
 	public float muzzleVelocity = 20f; // in m/s.
+	public float reloadTime = 2f; // in seconds.
 
 	public const int magMax = 10;
 	public int mag = 10;
@@ -17,11 +18,17 @@ public class SidearmWeapon : MonoBehaviour
 
 	void Update()
 	{
-		if (Input.GetKeyDown(KeyCode.Mouse0) && mag > 0 && canShoot)
+		if (Input.GetKeyDown(KeyCode.R)) // reload.
+		{
+			StartCoroutine(Reload());
+		}
+
+		if (Input.GetKeyDown(KeyCode.Mouse0) && mag > 0 && canShoot) // shoot.
 		{
 			StartCoroutine(ShootingDelay());
 			GameObject bullet = Instantiate(bulletPrefab, sidearmMuzzle.transform.position, transform.rotation); // create bullet.
 			bullet.SendMessage("SetVelocity", muzzleVelocity); // set bullet's velocity.
+			mag--;
 		}
 	}
 
@@ -30,6 +37,14 @@ public class SidearmWeapon : MonoBehaviour
 		canShoot = false;
 		float timeBeforeShooting = (float)60 / (float)fireRate; // calculate time before firing.
 		yield return new WaitForSeconds((float)timeBeforeShooting); // wait.
+		canShoot = true;
+	}
+
+	IEnumerator Reload()
+	{
+		canShoot = false;
+		yield return new WaitForSeconds((float)reloadTime); // wait.
+		mag = magMax;
 		canShoot = true;
 	}
 }
