@@ -15,11 +15,11 @@ GameObject:
   - component: {fileID: 978175180792699012}
   m_Layer: 0
   m_Name: sidearm
-  m_TagString: Sidearm
+  m_TagString: IgnoredByColliders
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2200038131864104580
 Transform:
   m_ObjectHideFlags: 0
@@ -123,8 +123,7 @@ MonoBehaviour:
   sidearmMuzzle: {fileID: 1788206072145077048}
   fireRate: 120
   muzzleVelocity: 762
-  magMin: 10
-  magMax: 20
+  mag: 10
 --- !u!1 &1788206072145077048
 GameObject:
   m_ObjectHideFlags: 0
@@ -205,7 +204,7 @@ GameObject:
   - component: {fileID: 5487730678196904627}
   m_Layer: 0
   m_Name: primary
-  m_TagString: Primary
+  m_TagString: IgnoredByColliders
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -323,7 +322,7 @@ GameObject:
   - component: {fileID: 8922245448975831337}
   m_Layer: 0
   m_Name: melee
-  m_TagString: Primary
+  m_TagString: IgnoredByColliders
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -947,7 +946,7 @@ GameObject:
   - component: {fileID: 8405428411484585538}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
