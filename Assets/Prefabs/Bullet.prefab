@@ -149,6 +149,4 @@ MonoBehaviour:
   rb: {fileID: 0}
   collision: 0
   tagsToIgnore:
-  - Primary
-  - Sidearm
-  - Melee
+  - IgnoredByColliders

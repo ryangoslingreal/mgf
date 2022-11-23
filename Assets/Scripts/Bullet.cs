@@ -33,7 +33,6 @@ public class Bullet : MonoBehaviour
 		// check that collision object's tag isn't in list of ignored tags.
 		if (!tagsToIgnore.Contains(other.gameObject.tag))
 		{
-			Debug.Log(other.gameObject.tag);
 			Destroy(this.gameObject);
 		}
 	}

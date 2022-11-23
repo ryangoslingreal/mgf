@@ -22,6 +22,7 @@ public class EnemyController : MonoBehaviour
 		if (other.gameObject.tag == "Bullet") // check tag of object collided with.
 		{
 			health -= 25; // take dmg.
+            Debug.Log("shot");
 			other.gameObject.GetComponent<Bullet>().collision = true; // bullet destroyed next frame.
 
 			if (health <= 0)
