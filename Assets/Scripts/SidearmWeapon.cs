@@ -8,7 +8,7 @@ public class SidearmWeapon : MonoBehaviour
 	public GameObject sidearmMuzzle;
 
 	public float fireRate = 120f; // 120rpm = trigger pull every 0.5s.
-	public float muzzleVelocity = 15f; // in m/s.
+	public float muzzleVelocity = 20f; // in m/s.
 
 	public const int magMax = 10;
 	public int mag = 10;
