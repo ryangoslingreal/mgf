@@ -123,6 +123,7 @@ MonoBehaviour:
   sidearmMuzzle: {fileID: 1788206072145077048}
   fireRate: 120
   muzzleVelocity: 20
+  reloadTime: 2
   mag: 10
 --- !u!1 &1788206072145077048
 GameObject:
@@ -343,6 +344,7 @@ MonoBehaviour:
   primaryMuzzle: {fileID: 2316331249591868578}
   fireRate: 600
   muzzleVelocity: 35
+  reloadTime: 3.5
   mag: 30
 --- !u!1 &4091067063426055422
 GameObject:
@@ -371,14 +373,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4091067063426055422}
-  m_LocalRotation: {x: -0.340394, y: 0.047863554, z: 0.04359711, w: 0.93805134}
+  m_LocalRotation: {x: -0.34412143, y: 0.003961909, z: 0.10774665, w: 0.932714}
   m_LocalPosition: {x: 0, y: -0.3, z: 0.8}
   m_LocalScale: {x: 0.1, y: 0.1, z: 1.5}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 8765022122056511666}
   m_RootOrder: -1
-  m_LocalEulerAnglesHint: {x: -40, y: 4.501, z: 3.683}
+  m_LocalEulerAnglesHint: {x: -40, y: -5, z: 15}
 --- !u!33 &7860914093314484840
 MeshFilter:
   m_ObjectHideFlags: 0
