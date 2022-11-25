@@ -1,9 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class SidearmWeapon : MonoBehaviour
 {
+	public GameObject UI;
+
 	public GameObject bulletPrefab;
 	public GameObject sidearmMuzzle;
 
@@ -18,6 +21,8 @@ public class SidearmWeapon : MonoBehaviour
 
 	void Update()
 	{
+		UI.SendMessage("SetActiveWeapon", this.gameObject);
+
 		if (Input.GetKeyDown(KeyCode.R)) // reload.
 		{
 			StartCoroutine(Reload());
