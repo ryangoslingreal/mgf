@@ -68,7 +68,7 @@ public class PlayerController : MonoBehaviour
 
 		rotX = Mathf.Clamp(rotX, -maxHeadTiltAngle, maxHeadTiltAngle);
 
-        if (canAim) // debug.
+        if (canAim) // debug toggle.
         {
             player.transform.eulerAngles = new Vector3(0f, rotY, 0f); // body rotated.
 		    cam.transform.eulerAngles = new Vector3(rotX, rotY, 0f); // head tilted + rotated side to side to keep aligned with body.
