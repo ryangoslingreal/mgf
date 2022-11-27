@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class PrimaryWeapon : MonoBehaviour
 {
+	public GameObject UI;
+
 	public GameObject bulletPrefab;
 	public GameObject primaryMuzzle;
 
@@ -18,6 +20,8 @@ public class PrimaryWeapon : MonoBehaviour
 
 	void Update()
 	{
+		UI.SendMessage("SetActiveWeapon", this.gameObject);
+
 		if (Input.GetKeyDown(KeyCode.R)) // reload.
 		{
 			StartCoroutine(Reload());

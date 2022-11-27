@@ -40,6 +40,7 @@ public class PlayerController : MonoBehaviour
     public GameObject primary;
     public GameObject sidearm;
     public GameObject melee;
+    public GameObject activeWeapon;
 
     void Start()
     {
