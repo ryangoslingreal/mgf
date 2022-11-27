@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class SidearmWeapon : MonoBehaviour
 {
-	public GameObject UI;
+	GameObject UI;
 
 	public GameObject bulletPrefab;
 	public GameObject sidearmMuzzle;
@@ -19,9 +19,14 @@ public class SidearmWeapon : MonoBehaviour
 
 	bool canShoot = true;
 
+	void Start()
+	{
+		UI = GameObject.FindWithTag("UI"); // can’t be assigned in inspector as UI is not a prefab.
+	}
+
 	void Update()
 	{
-		UI.SendMessage("SetActiveWeapon", this.gameObject);
+		UI.SendMessage("RefreshAmmo", mag); // send ammo count to UI.
 
 		if (Input.GetKeyDown(KeyCode.R)) // reload.
 		{

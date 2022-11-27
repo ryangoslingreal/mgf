@@ -119,7 +119,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ba619ee56a26b4d49b4c4cea797d2730, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  UI: {fileID: 0}
   bulletPrefab: {fileID: 6108139899645743834, guid: 93c3caf3896c6774fb36c173bf59a4fb, type: 3}
   sidearmMuzzle: {fileID: 1788206072145077048}
   fireRate: 120
@@ -341,7 +340,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cda4963df3f36aa4a9b6179e9c1829bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  UI: {fileID: 0}
   bulletPrefab: {fileID: 6108139899645743834, guid: 93c3caf3896c6774fb36c173bf59a4fb, type: 3}
   primaryMuzzle: {fileID: 2316331249591868578}
   fireRate: 600
@@ -466,7 +464,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c154aeb2798b0c4f9f4fdabd840cd55, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  UI: {fileID: 0}
 --- !u!1 &6237192139820635512
 GameObject:
   m_ObjectHideFlags: 0
@@ -1028,10 +1025,11 @@ MonoBehaviour:
   topPivot: {fileID: 6237192140189157730}
   headPivot: {fileID: 6237192141190386011}
   wpnAnchor: {fileID: 2781094369183201235}
+  canAim: 1
   primary: {fileID: 3753531174033878921}
   sidearm: {fileID: 493618627763346539}
   melee: {fileID: 4091067063426055422}
-  activeWeapon: {fileID: 0}
+  health: 100
 --- !u!114 &6237192141485440540
 MonoBehaviour:
   m_ObjectHideFlags: 0

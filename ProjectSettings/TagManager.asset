@@ -9,6 +9,7 @@ TagManager:
   - Primary
   - Bullet
   - IgnoredByColliders
+  - UI
   layers:
   - Default
   - TransparentFX

@@ -9,64 +9,40 @@ public class SyncUI : MonoBehaviour
 	public GameObject player;
 	PlayerController playerController;
 
-	GameObject activeWeapon;
-
-	public RawImage healthBG;
-	RectTransform healthBGTransform;
+	public RawImage ammoBG;
+	public Text ammoText;
+	RectTransform ammoBGTransform; // required for resizing ammo count box.
 
 	public Text healthText;
-	RectTransform healthTextTransform;
 
 	void Start()
 	{
 		playerController = player.GetComponent<PlayerController>();
 
-		healthBGTransform = healthBG.GetComponent<RectTransform>();
-		healthTextTransform = healthText.GetComponent<RectTransform>();
+		ammoBGTransform = ammoBG.GetComponent<RectTransform>(); // required for resizing ammo count box.
 	}
 
 	void Update()
 	{
-		int ammoCount = GetAmmoCount();
+		RefreshHealth(playerController.health); // health refresh not called in other script so called in Update().
+	}
 
-		healthText.text = ammoCount.ToString() + "/-";
+	void RefreshAmmo(int ammoCount) // ammo count received from weapon script.
+	{
+		ammoText.text = ammoCount.ToString() + "/-";
 
-		if (ammoCount > 9)
+		if (ammoCount > 9) // resize ammo count box.
 		{
-			healthBGTransform.sizeDelta = new Vector2(300f, 120f);
+			ammoBGTransform.sizeDelta = new Vector2(250f, 120f);
 		}
 		else
 		{
-			healthBGTransform.sizeDelta = new Vector2(250f, 120f);
+			ammoBGTransform.sizeDelta = new Vector2(200f, 120f);
 		}
-		
 	}
 
-	void SetActiveWeapon(GameObject _activeWeapon)
+	void RefreshHealth(float playerHealth) // health retrieved manually. not set by another script.
 	{
-		activeWeapon = _activeWeapon;
-	}
-
-	int GetAmmoCount()
-	{
-		int ammoCount;
-
-		if (activeWeapon.name == "sidearm")
-		{
-			healthBG.gameObject.SetActive(true);
-			ammoCount = activeWeapon.GetComponent<SidearmWeapon>().mag;
-		}
-		else if (activeWeapon.name == "primary")
-		{
-			healthBG.gameObject.SetActive(true);
-			ammoCount = activeWeapon.GetComponent<PrimaryWeapon>().mag;
-		}
-		else
-		{
-			healthBG.gameObject.SetActive(false);
-			ammoCount = 0;
-		}
-
-		return ammoCount;
+		healthText.text = playerHealth.ToString();
 	}
 }

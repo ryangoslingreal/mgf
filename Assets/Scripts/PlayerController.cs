@@ -32,6 +32,7 @@ public class PlayerController : MonoBehaviour
     float defaultCrouchSpeed = 4f;
     float crouchHeight = 1.4f;
 
+    public bool canAim = true;
     float sensitivity = 1000f;
     private float rotY = 0f;
     private float rotX = 0f;
@@ -40,7 +41,9 @@ public class PlayerController : MonoBehaviour
     public GameObject primary;
     public GameObject sidearm;
     public GameObject melee;
-    public GameObject activeWeapon;
+
+    public const float healthMax = 100f;
+    public float health = 100f;
 
     void Start()
     {
@@ -64,9 +67,13 @@ public class PlayerController : MonoBehaviour
 		rotX -= mouseY;
 
 		rotX = Mathf.Clamp(rotX, -maxHeadTiltAngle, maxHeadTiltAngle);
-		player.transform.eulerAngles = new Vector3(0f, rotY, 0f); // body rotated.
-		cam.transform.eulerAngles = new Vector3(rotX, rotY, 0f); // head tilted + rotated side to side to keep aligned with body.
 
+        if (canAim) // debug.
+        {
+            player.transform.eulerAngles = new Vector3(0f, rotY, 0f); // body rotated.
+		    cam.transform.eulerAngles = new Vector3(rotX, rotY, 0f); // head tilted + rotated side to side to keep aligned with body.
+        }
+		
         // saving current torso and head rotation to shorten reference in successive lines.
 		Quaternion initRotTop = topPivot.transform.localRotation;
         Quaternion initRotHead = headPivot.transform.localRotation;
