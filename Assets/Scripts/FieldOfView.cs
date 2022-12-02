@@ -23,9 +23,11 @@ public class FieldOfView : MonoBehaviour
     {
         while (true)
         {
-			yield return new WaitForSeconds(delay);
+			yield return new WaitForSeconds(delay * Time.deltaTime);
             FindVisibleTargets();
-        }
+
+			gameObject.SendMessage("FindPlayerInListOfDetectedTargets", visibleTargets); // send list to enemy.
+		}
     }
 
     void FindVisibleTargets()
@@ -46,7 +48,11 @@ public class FieldOfView : MonoBehaviour
 
 				if (!Physics.Raycast(transform.position, dirToTarget, distToTarget, obstacleMask)) // if raycast doesn't collide with obstacle.
                 {
-                    visibleTargets.Add(target); // store visible enemy.
+					// ensure that target's root isn't already in list.
+					if (!visibleTargets.Contains(target.transform.root))
+                    {
+						visibleTargets.Add(target.transform.root); // store visible enemy.
+					}
                 }
             }
         }

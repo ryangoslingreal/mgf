@@ -44,6 +44,9 @@ public class PlayerController : MonoBehaviour
     public const float healthMax = 100f;
     public float health = 100f;
 
+    public float detection = 0;
+    public bool detected = false;
+
     void Start()
     {
         animator = GetComponent<Animator>();

@@ -584,13 +584,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d08204da8e0aac7488293226184e2f13, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  detectionSounds:
-  - {fileID: 8300000, guid: e536c2efe93386f40a926a8d69738a5d, type: 3}
-  - {fileID: 8300000, guid: fe2ccdad832ba2a4d931799a76ac45d3, type: 3}
-  - {fileID: 8300000, guid: bf6118b1883c593488da6574e47a602e, type: 3}
-  - {fileID: 8300000, guid: 3599f8d50ee194643afcda7719f2f9e0, type: 3}
-  nodes: []
   health: 100
+  player: {fileID: 0}
+  playerDetected: 0
+  detection: 0
 --- !u!114 &1073466538974995455
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -603,12 +600,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a39d665cae052d746b658b7fa2ef5853, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  viewRadius: 0
-  viewAngle: 0
+  viewRadius: 10
+  viewAngle: 80
   targetMask:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 8
   obstacleMask:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 64
   visibleTargets: []
