@@ -421,9 +421,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2082428851905881671}
-  - component: {fileID: 2082428851905881670}
   - component: {fileID: 2082428851905881673}
   - component: {fileID: 5688897310268613161}
+  - component: {fileID: 2082428851905881670}
+  - component: {fileID: 1073466538974995455}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Enemy
@@ -448,25 +449,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
---- !u!114 &2082428851905881670
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2082428851905881669}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d08204da8e0aac7488293226184e2f13, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  detectionSounds:
-  - {fileID: 8300000, guid: e536c2efe93386f40a926a8d69738a5d, type: 3}
-  - {fileID: 8300000, guid: fe2ccdad832ba2a4d931799a76ac45d3, type: 3}
-  - {fileID: 8300000, guid: bf6118b1883c593488da6574e47a602e, type: 3}
-  - {fileID: 8300000, guid: 3599f8d50ee194643afcda7719f2f9e0, type: 3}
-  nodes: []
-  health: 100
 --- !u!82 &2082428851905881673
 AudioSource:
   m_ObjectHideFlags: 0
@@ -588,5 +570,45 @@ Rigidbody:
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 112
   m_CollisionDetection: 0
+--- !u!114 &2082428851905881670
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2082428851905881669}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d08204da8e0aac7488293226184e2f13, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  detectionSounds:
+  - {fileID: 8300000, guid: e536c2efe93386f40a926a8d69738a5d, type: 3}
+  - {fileID: 8300000, guid: fe2ccdad832ba2a4d931799a76ac45d3, type: 3}
+  - {fileID: 8300000, guid: bf6118b1883c593488da6574e47a602e, type: 3}
+  - {fileID: 8300000, guid: 3599f8d50ee194643afcda7719f2f9e0, type: 3}
+  nodes: []
+  health: 100
+--- !u!114 &1073466538974995455
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2082428851905881669}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a39d665cae052d746b658b7fa2ef5853, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  viewRadius: 0
+  viewAngle: 0
+  targetMask:
+    serializedVersion: 2
+    m_Bits: 0
+  obstacleMask:
+    serializedVersion: 2
+    m_Bits: 0
+  visibleTargets: []
