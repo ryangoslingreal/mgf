@@ -1,9 +1,15 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class FieldOfView : MonoBehaviour
 {
+	EnemyController enemyController;
+	public GameObject UI;
+	SyncUI syncUI;
+
     public float viewRadius;
     [Range(0, 360)] // clamp enemy’s view angle between 0 and 360 in inspector.
 	public float viewAngle;
@@ -14,9 +20,15 @@ public class FieldOfView : MonoBehaviour
     [HideInInspector]
     public List<Transform> visibleTargets = new List<Transform>();
 
+	float detection;
+
 	void Start()
 	{
-        StartCoroutine("FindTargetsWithDelay", 0.2f);
+		enemyController = this.GetComponent<EnemyController>();
+		syncUI = UI.GetComponent<SyncUI>();
+
+        StartCoroutine("FindTargetsWithDelay", 0.1f);
+		StartCoroutine("IncrementDetection", 0.005f);
 	}
 
 	IEnumerator FindTargetsWithDelay(float delay)
@@ -25,12 +37,40 @@ public class FieldOfView : MonoBehaviour
         {
 			yield return new WaitForSeconds(delay * Time.deltaTime);
             FindVisibleTargets();
-
-			gameObject.SendMessage("FindPlayerInListOfDetectedTargets", visibleTargets); // send list to enemy.
 		}
     }
 
-    void FindVisibleTargets()
+	IEnumerator IncrementDetection(float delay)
+	{
+		while (true)
+		{
+			bool isPlayerVisible = FindPlayerInListOfDetectedTargets(); // check if player is in list of targets.
+
+			if (isPlayerVisible)
+			{
+				detection = Mathf.Clamp(detection += 1, 0, 100); // increment if player is visible.
+				syncUI.SendMessage("SetEnemy", this.gameObject);
+
+				if (detection == 100)
+				{
+					enemyController.playerDetected = true; // player has been fully detected.
+				}
+			}
+			else if (!isPlayerVisible && !enemyController.playerDetected)
+			{
+				detection = Mathf.Clamp(detection -= 1, 0, 100); // decrement if player is not visible.
+			}
+
+			if (!enemyController.playerDetected)
+			{
+				
+			}
+
+			yield return new WaitForSeconds(delay);
+		}
+	}
+
+	void FindVisibleTargets()
     {
         visibleTargets.Clear();
 
@@ -69,4 +109,23 @@ public class FieldOfView : MonoBehaviour
         // https://www.softschools.com/math/pre_calculus/direction_angles_of_vectors/
 		return new Vector3(Mathf.Sin(angleInDegrees * Mathf.Deg2Rad), 0, Mathf.Cos(angleInDegrees * Mathf.Deg2Rad)); 
     }
+
+	public bool FindPlayerInListOfDetectedTargets()
+	{
+		bool listContainsPlayer = false;
+
+		if (visibleTargets.Count > 0) // check that list isn’t empty to avoid out of bounds error.
+		{
+			for (int i = 0; i < visibleTargets.Count; i++) // iterate through list.
+			{
+				if (visibleTargets[i].transform.gameObject.tag == "Player") // if current target is player.
+				{
+					listContainsPlayer = true;
+					break;
+				}
+			}
+		}
+
+		return listContainsPlayer;
+	}
 }

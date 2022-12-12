@@ -1221,6 +1221,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1073466538974995455, guid: 116d9acf718d8d74b958b9ea3515f380, type: 3}
+      propertyPath: canvas
+      value: 
+      objectReference: {fileID: 330985624}
     - target: {fileID: 2082428851905881669, guid: 116d9acf718d8d74b958b9ea3515f380, type: 3}
       propertyPath: m_Name
       value: Enemy

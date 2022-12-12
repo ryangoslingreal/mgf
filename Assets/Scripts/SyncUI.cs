@@ -45,4 +45,9 @@ public class SyncUI : MonoBehaviour
 	{
 		healthText.text = playerHealth.ToString();
 	}
+
+	void SetEnemy(GameObject enemy) // detection
+	{
+
+	}
 }

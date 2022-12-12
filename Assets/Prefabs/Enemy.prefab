@@ -587,6 +587,7 @@ MonoBehaviour:
   health: 100
   player: {fileID: 0}
   playerDetected: 0
+  playerVisible: 0
   detection: 0
 --- !u!114 &1073466538974995455
 MonoBehaviour:
@@ -600,7 +601,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a39d665cae052d746b658b7fa2ef5853, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  viewRadius: 10
+  viewRadius: 12
   viewAngle: 80
   targetMask:
     serializedVersion: 2
