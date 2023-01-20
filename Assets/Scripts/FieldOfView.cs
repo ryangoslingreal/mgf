@@ -7,8 +7,6 @@ using UnityEngine;
 public class FieldOfView : MonoBehaviour
 {
 	EnemyController enemyController;
-	public GameObject UI;
-	SyncUI syncUI;
 
     public float viewRadius;
     [Range(0, 360)] // clamp enemy’s view angle between 0 and 360 in inspector.
@@ -20,12 +18,12 @@ public class FieldOfView : MonoBehaviour
     [HideInInspector]
     public List<Transform> visibleTargets = new List<Transform>();
 
-	float detection;
+	public float detection;
+	public bool isPlayerVisible;
 
 	void Start()
 	{
 		enemyController = this.GetComponent<EnemyController>();
-		syncUI = UI.GetComponent<SyncUI>();
 
         StartCoroutine("FindTargetsWithDelay", 0.1f);
 		StartCoroutine("IncrementDetection", 0.005f);
@@ -44,12 +42,12 @@ public class FieldOfView : MonoBehaviour
 	{
 		while (true)
 		{
-			bool isPlayerVisible = FindPlayerInListOfDetectedTargets(); // check if player is in list of targets.
+			isPlayerVisible = FindPlayerInListOfDetectedTargets(); // check if player is in list of targets.
 
 			if (isPlayerVisible)
 			{
 				detection = Mathf.Clamp(detection += 1, 0, 100); // increment if player is visible.
-				syncUI.SendMessage("SetEnemy", this.gameObject);
+				
 
 				if (detection == 100)
 				{
@@ -60,13 +58,8 @@ public class FieldOfView : MonoBehaviour
 			{
 				detection = Mathf.Clamp(detection -= 1, 0, 100); // decrement if player is not visible.
 			}
-
-			if (!enemyController.playerDetected)
-			{
-				
-			}
-
-			yield return new WaitForSeconds(delay);
+			
+			yield return new WaitForSeconds(delay); // wait.
 		}
 	}
 

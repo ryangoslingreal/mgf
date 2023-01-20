@@ -1,8 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.UIElements;
+using Image = UnityEngine.UI.Image;
 
 public class SyncUI : MonoBehaviour
 {
@@ -15,11 +18,14 @@ public class SyncUI : MonoBehaviour
 
 	public Text healthText;
 
+	public GameObject detectionMarkerPrefab;
+
 	void Start()
 	{
 		playerController = player.GetComponent<PlayerController>();
-
 		ammoBGTransform = ammoBG.GetComponent<RectTransform>(); // required for resizing ammo count box.
+
+		CreateDetectionMarkers();
 	}
 
 	void Update()
@@ -46,8 +52,17 @@ public class SyncUI : MonoBehaviour
 		healthText.text = playerHealth.ToString();
 	}
 
-	void SetEnemy(GameObject enemy) // detection
+	void CreateDetectionMarkers()
 	{
+		GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy"); // array of enemies.
 
+		// cycle through each enemy and instantiate a marker.
+		foreach (GameObject enemy in enemies)
+		{
+			GameObject detectionMarker = Instantiate(detectionMarkerPrefab); // create detection marker.
+			detectionMarker.transform.parent = transform; // bound marker to canvas.
+			detectionMarker.transform.position = new Vector3(Screen.width / 2, Screen.height / 2, 0f); // reset position.
+			detectionMarker.SendMessage("CreateDetectionMarker", enemy); // link marker to enemy.
+		}
 	}
 }
