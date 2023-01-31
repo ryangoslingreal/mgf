@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
@@ -70,10 +71,10 @@ public class PlayerController : MonoBehaviour
 
 		rotX = Mathf.Clamp(rotX, -maxHeadTiltAngle, maxHeadTiltAngle);
 
-        if (canAim) // debug toggle.
+        if (canAim) // toggle for debugging.
         {
             player.transform.eulerAngles = new Vector3(0f, rotY, 0f); // body rotated.
-		    cam.transform.eulerAngles = new Vector3(rotX, rotY, 0f); // head tilted + rotated side to side to keep aligned with body.
+            cam.transform.localEulerAngles = new Vector3(rotX, 0f, 0f); // head tilted + rotated side to side to keep aligned with body.
         }
 		
         // saving current torso and head rotation to shorten reference in successive lines.
@@ -82,11 +83,11 @@ public class PlayerController : MonoBehaviour
 
         // torso rotated in direction of input.
         topPivot.transform.localRotation = Quaternion.Lerp(initRotTop, Quaternion.Euler(initRotTop.x, initRotTop.y, torsoLeanAngle * CheckLean()), rotateSpeed * Time.deltaTime);
-        // head rotated in opposite direction of input.
-        headPivot.transform.localRotation = Quaternion.Lerp(initRotHead, Quaternion.Euler(initRotTop.x, initRotTop.y, headLeanAngle * CheckLean()), rotateSpeed * Time.deltaTime);
+		// head rotated in opposite direction of input.
+		headPivot.transform.localRotation = Quaternion.Lerp(initRotHead, Quaternion.Euler(initRotTop.x, initRotTop.y, headLeanAngle * CheckLean()), rotateSpeed * Time.deltaTime);
 
-        // player translated every frame by their speed * time since last frame if they have pressed movement key.
-        player.transform.Translate(movementSpeed * Time.deltaTime * CheckLRMovement(), 0, movementSpeed * Time.deltaTime * CheckFBMovement(), Space.Self);
+		// player translated every frame by their speed * time since last frame if they have pressed movement key.
+		player.transform.Translate(movementSpeed * Time.deltaTime * CheckLRMovement(), 0, movementSpeed * Time.deltaTime * CheckFBMovement(), Space.Self);
 
         CheckStance();
 
