@@ -1335,6 +1335,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 6237192141485440530, guid: 7ba9940a69b683645ba5759e384fc4c8, type: 3}
+      propertyPath: canAim
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6237192141485440531, guid: 7ba9940a69b683645ba5759e384fc4c8, type: 3}
       propertyPath: m_RootOrder
       value: 1

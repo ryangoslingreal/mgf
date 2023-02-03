@@ -73,9 +73,9 @@ public class PlayerController : MonoBehaviour
 
         if (canAim) // toggle for debugging.
         {
-            player.transform.eulerAngles = new Vector3(0f, rotY, 0f); // body rotated.
-            cam.transform.localEulerAngles = new Vector3(rotX, 0f, 0f); // head tilted + rotated side to side to keep aligned with body.
-        }
+			player.transform.eulerAngles = new Vector3(0f, rotY, 0f); // body rotated left/right.
+			cam.transform.localEulerAngles = new Vector3(rotX, 0f, 0f); // head tilted up/down.
+		}
 		
         // saving current torso and head rotation to shorten reference in successive lines.
 		Quaternion initRotTop = topPivot.transform.localRotation;

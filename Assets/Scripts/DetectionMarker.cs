@@ -6,14 +6,14 @@ public class DetectionMarker : MonoBehaviour
 {
 	GameObject player;
 	GameObject enemy; // enemy received from SyncUI.
-	FieldOfView enemyFOV; // saved so doesn't have to be retrieved every time.
+	FieldOfView enemyFOV; // enemy FOV saved so doesn't have to be retrieved every time.
 	GameObject detectionSprite; // marker's child with Image component.
 
 	void Update()
 	{
-		if (enemyFOV.detection > 0) // if player is visible.
+		if (enemyFOV.isPlayerVisible && !enemyFOV.isPlayerDetected) // if player is visible but not detected.
 		{
-			detectionSprite.SetActive(true); // enable Image.
+			detectionSprite.SetActive(true);
 
 			Vector3 dirToEnemy = (enemy.transform.position - player.transform.position); // vector from player to enemy.
 			float angle = Vector3.Angle(player.transform.forward, dirToEnemy); // angle from player to enemy.
@@ -33,36 +33,18 @@ public class DetectionMarker : MonoBehaviour
 
 			transform.rotation = Quaternion.Euler(0f, 0f, angle - 90f); // rotate marker.
 		}
-		else // if player is not visible.
+		else
 		{
 			detectionSprite.SetActive(false);
-		}
-
-		if (enemyFOV.detection >= 100) // if player has been detected.
-		{
-			Debug.Log("detected");
-
-			StartCoroutine(FlashAndHide(0.5f));
-		}
-	}
-
-	IEnumerator FlashAndHide(float delay)
-	{
-		for (int i = 0; i < 3; i++)
-		{
-			detectionSprite.SetActive(false);
-			yield return new WaitForSeconds(delay); // wait.
-			detectionSprite.SetActive(true);
-			yield return new WaitForSeconds(delay); // wait.
 		}
 	}
 
 	void CreateDetectionMarker(GameObject _enemy) // receive enemy from SyncUI.
 	{
 		enemy = _enemy;
-		enemyFOV = enemy.GetComponent<FieldOfView>(); // get enemy's FOV script for detection.
+		enemyFOV = enemy.GetComponent<FieldOfView>(); // get enemy's FOV script for detection value.
 		player = GameObject.FindGameObjectWithTag("Player"); // get player.
-		detectionSprite = transform.GetChild(0).gameObject; // get marker's child containing Image component.
-		detectionSprite.SetActive(false); // hide initially.
+		detectionSprite = transform.GetChild(0).gameObject; // get child with Image component.
+		detectionSprite.SetActive(false); // disable marker by default.
 	}
 }

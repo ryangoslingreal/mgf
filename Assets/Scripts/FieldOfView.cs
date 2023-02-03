@@ -20,13 +20,14 @@ public class FieldOfView : MonoBehaviour
 
 	public float detection;
 	public bool isPlayerVisible;
+	public bool isPlayerDetected;
 
 	void Start()
 	{
 		enemyController = this.GetComponent<EnemyController>();
 
         StartCoroutine("FindTargetsWithDelay", 0.1f);
-		StartCoroutine("IncrementDetection", 0.005f);
+		StartCoroutine("IncrementDetection", 0.001f);
 	}
 
 	IEnumerator FindTargetsWithDelay(float delay)
@@ -51,7 +52,7 @@ public class FieldOfView : MonoBehaviour
 
 				if (detection == 100)
 				{
-					enemyController.playerDetected = true; // player has been fully detected.
+					isPlayerDetected = true;
 				}
 			}
 			else if (!isPlayerVisible && !enemyController.playerDetected)
@@ -59,7 +60,7 @@ public class FieldOfView : MonoBehaviour
 				detection = Mathf.Clamp(detection -= 1, 0, 100); // decrement if player is not visible.
 			}
 			
-			yield return new WaitForSeconds(delay); // wait.
+			yield return new WaitForSeconds(delay * Time.deltaTime); // wait.
 		}
 	}
 
