@@ -16,9 +16,9 @@ public class PlayerController : MonoBehaviour
     public GameObject headPivot;
     public GameObject wpnAnchor;
 
-	float rotateSpeed = 7f;
-    float torsoLeanAngle = 30f;
-    float headLeanAngle = -15f;
+	const float rotateSpeed = 7f;
+    const float torsoLeanAngle = 30f;
+    const float headLeanAngle = -15f;
 
     float movementSpeed;
     const float defaultSprintMovementSpeed = 9f;
