@@ -125,6 +125,11 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 6237192141485440529, guid: 7ba9940a69b683645ba5759e384fc4c8, type: 3}
   m_PrefabInstance: {fileID: 6237192140719406244}
   m_PrefabAsset: {fileID: 0}
+--- !u!4 &88911462 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6237192141485440531, guid: 7ba9940a69b683645ba5759e384fc4c8, type: 3}
+  m_PrefabInstance: {fileID: 6237192140719406244}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &118948053
 GameObject:
   m_ObjectHideFlags: 0
@@ -797,6 +802,11 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &1088862716 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2082428851905881671, guid: 116d9acf718d8d74b958b9ea3515f380, type: 3}
+  m_PrefabInstance: {fileID: 5914708416405931105}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1250878487
 GameObject:
   m_ObjectHideFlags: 0
@@ -917,7 +927,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1629996958}
   - component: {fileID: 1629996957}
-  m_Layer: 0
+  - component: {fileID: 1629996960}
+  - component: {fileID: 1629996959}
+  m_Layer: 6
   m_Name: Environment
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -951,6 +963,38 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1629996959
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1629996956}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 63e18450c3545ef40bf6a9d4951184df, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 88911462}
+  untraversableMask:
+    serializedVersion: 2
+    m_Bits: 64
+  gridWorldSize: {x: 50, y: 50}
+  nodeRadius: 0.5
+--- !u!114 &1629996960
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1629996956}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b0ca512f8a4bf0245b5d0adecc003d18, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  seeker: {fileID: 1088862716}
+  target: {fileID: 88911462}
 --- !u!1 &1714631612
 GameObject:
   m_ObjectHideFlags: 0
