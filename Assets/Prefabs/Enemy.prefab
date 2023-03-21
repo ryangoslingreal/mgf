@@ -587,8 +587,7 @@ MonoBehaviour:
   health: 100
   player: {fileID: 0}
   playerDetected: 0
-  playerVisible: 0
-  detection: 0
+  target: {fileID: 0}
 --- !u!114 &1073466538974995455
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -610,3 +609,6 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   visibleTargets: []
+  detection: 0
+  isPlayerVisible: 0
+  isPlayerDetected: 0

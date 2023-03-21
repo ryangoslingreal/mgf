@@ -8,9 +8,8 @@ using UnityEngine;
 public class EnemyController : MonoBehaviour
 {
 	AudioSource audioSource;
-	//public AudioClip[] detectionSounds;
 
-	//public GameObject[] nodes;
+	//public AudioClip[] detectionSounds;
 
 	const float maxHealth = 100f;
 	public float health = 100f;
@@ -18,8 +17,9 @@ public class EnemyController : MonoBehaviour
 	[HideInInspector]
 	public GameObject player;
 	public bool playerDetected;
+	public Transform target;
 
-    void Start()
+	void Start()
     {
         audioSource = GetComponent<AudioSource>();
     }
