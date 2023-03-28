@@ -74,7 +74,8 @@ public class EnemyController : MonoBehaviour
 				currentWaypoint = path[targetIndex]; // set next waypoint.
 			}
 
-			transform.position = Vector3.MoveTowards(transform.position, currentWaypoint, speed); // move to waypoint.
+			transform.LookAt(currentWaypoint);
+			transform.position = Vector3.MoveTowards(transform.position, currentWaypoint, speed * Time.deltaTime); // move to waypoint.
 			yield return null;
 		}
 	}
