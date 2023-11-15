@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.ComponentModel.Design.Serialization;
 using System.IO;
 using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class EnemyController : MonoBehaviour
@@ -15,18 +16,27 @@ public class EnemyController : MonoBehaviour
 	const float maxHealth = 100f;
 	public float health = 100f;
 
+	public GameObject[] patrolRoute;
+	bool patrolling = false;
+	int i;
+
 	[HideInInspector]
 	public GameObject player;
 	public bool playerDetected;
 
 	public Transform target;
-	float speed = 1f;
+	float speed = 0.05f;
 	Vector3[] path;
 	int targetIndex;
 
 	void Start()
     {
         audioSource = GetComponent<AudioSource>();
+		target = player.transform;
+	}
+
+	void Update()
+	{
 		PathRequestManager.RequestPath(transform.position, target.position, OnPathFound); // request path.
 	}
 
@@ -55,6 +65,11 @@ public class EnemyController : MonoBehaviour
 			StartCoroutine("FollowPath");
 		}
 	}
+	
+	//IEnumerator FollowRoute()
+	//{
+	//	yield return null;
+	//}
 
 	IEnumerator FollowPath()
 	{
